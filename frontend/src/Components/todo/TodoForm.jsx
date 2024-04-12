@@ -8,7 +8,7 @@ const TodoForm = () => {
     body: "",
   });
 
-  const dispatch = useDispatch();
+  const dispatch = useDispatch()
 
   const handleChange = (e) => {
     setNewTodo((pre) => ({
@@ -19,8 +19,8 @@ const TodoForm = () => {
 
   const postTodo = async () => {
     try {
-      dispatch(addTodo(newTodo));
-      setNewTodo({ body: "" });
+      dispatch(addTodo(newTodo))
+      setNewTodo({'body':''})
     } catch (error) {
       console.log(error);
     }
@@ -31,7 +31,7 @@ const TodoForm = () => {
       <input
         type="text"
         placeholder="Add Todo"
-        className="input border w-full max-w-xs "
+        className="input input-bordered w-full max-w-xs "
         onChange={handleChange}
         value={newTodo.body}
         onKeyDown={(e) => {

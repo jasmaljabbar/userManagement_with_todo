@@ -1,14 +1,15 @@
 import React, { useEffect, useState } from "react";
 import Table from "../Components/todo/Table";
 import TodoForm from "../Components/todo/TodoForm";
+import axios from "axios";
 import { useDispatch } from "react-redux";
 import { fetchTodo } from "../features/todo/todoSlice";
-import { useNavigate } from 'react-router-dom'
+import { useNavigate } from "react-router-dom";
 
 export default function Todo() {
-  const navigate = useNavigate()
   const dispatch = useDispatch();
   const [isLoading, setisLoading] = useState(true);
+  const navigate = useNavigate();
 
   const fetchData = async () => {
     try {
@@ -21,17 +22,16 @@ export default function Todo() {
   useEffect(() => {
     fetchData();
   }, []);
-  
-  const back=()=>{
-    navigate(-1)
-  }
+
+  const Back = () => {
+    navigate(-1);
+  };
 
   return (
     <div className="bg-indigo-100 px-8 min-h-screen">
       <button
-        type="button"
-        onClick={back}
-        class="focus:outline-none float-right  text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 mb-2 dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-900"
+        onClick={Back}
+        class="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"
       >
         Back to Home
       </button>

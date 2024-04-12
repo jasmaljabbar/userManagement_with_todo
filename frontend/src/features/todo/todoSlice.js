@@ -1,11 +1,11 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import axios from 'axios';
+import {createSlice,createAsyncThunk } from '@reduxjs/toolkit'
+import axios from 'axios'
 
-export const fetchTodo = createAsyncThunk('todos/fetchTodos', async (userId) => {
-  const response = await axios.get(`http://127.0.0.1:8000/api/todo/?user=${userId}`);
-  return response.data;
-});
 
+export const fetchTodo = createAsyncThunk('todos/fetchTodos',async ()=>{
+    const response = await axios.get('http://127.0.0.1:8000/api/todo/')
+    return response.data
+})
 
 export const addTodo = createAsyncThunk('todos/addtodo',async(data)=>{
     const response = await axios.post("http://127.0.0.1:8000/api/todo/",data)
@@ -53,19 +53,20 @@ const todoSlice = createSlice({
             state.todoList.push(action.payload)
         }).addCase(deletetodo.fulfilled, (state,action) =>{
             state.todoList = state.todoList.filter((todo)=> todo.id !== action.payload)
-        }).addCase(updatetodo.fulfilled, (state, action) => {
-            const index = state.todoList.findIndex(todo => todo.id === action.payload.id);
-            if (index !== -1) {
-                state.todoList[index] = action.payload; // Assuming the API returns the updated todo item
+        }).addCase(updatetodo.fulfilled, (state,action) =>{
+            const {id, data} = action.payload;
+            const existingTodo = state.todoList.find((todo)=> todo.id === id );
+            if (existingTodo){
+                existingTodo.data = data
             }
+            
         })
-        
 
     }
  
 
 })
 
-export const selectTodos = (state) => state.todo.todoList;
+export const selectTodos = (state) => state.todoList.todo
 
 export default todoSlice.reducer
